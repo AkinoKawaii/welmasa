@@ -5,7 +5,7 @@ from .utils import checks
 from __main__ import send_cmd_help
 import os
 import asyncio
-
+client = discord.Client()
 
 default_greeting = "Welcome {0.name} to {1.name}!"
 default_settings = {"GREETING": default_greeting, "ON": False, "CHANNEL": None, "WHISPER" : False}
@@ -194,3 +194,6 @@ def setup(bot):
     n = Welcome(bot)
     bot.add_listener(n.member_join,"on_member_join")
     bot.add_cog(n)
+
+print('Starting....')
+client.run('MzMzNjAxMzE1OTY1ODk0NjU2.DFDCrw.RPxweTa0q8ANnfU-lEIAcvpCfDk')
