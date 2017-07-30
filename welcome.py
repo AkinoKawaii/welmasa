@@ -1,7 +1,11 @@
 import discord
+from discord.ext import commands
+from .utils.dataIO import fileIO
+from .utils import checks
+from __main__ import send_cmd_help
 import os
 import asyncio
-client = discord.Client()
+
 
 default_greeting = "Welcome {0.name} to {1.name}!"
 default_settings = {"GREETING": default_greeting, "ON": False, "CHANNEL": None, "WHISPER" : False}
@@ -36,10 +40,12 @@ class Welcome:
     @welcomeset.command(pass_context=True)
     async def greeting(self, ctx, *, format_msg):
         """Sets the welcome message format for the server.
+
         {0} is user
         {1} is server
         Default is set to: 
             Welcome {0.name} to {1.name}!
+
         Example formats:
             {0.mention}.. What are you doing here?
             {1.name} has a new member! {0.name}#{0.discriminator} - {0.id}
@@ -66,6 +72,7 @@ class Welcome:
     @welcomeset.command(pass_context=True)
     async def channel(self, ctx, channel : discord.Channel=None): 
         """Sets the channel to send the welcome message
+
         If channel isn't specified, the server's default channel will be used"""
         server = ctx.message.server
         if channel == None:
@@ -87,6 +94,7 @@ class Welcome:
             off - turns off DMs to users
             only - only send a DM to the user, don't send a welcome to the channel
             both - send a message to both the user and the channel
+
         If Option isn't specified, toggles between 'off' and 'only'"""
         options = {"off": False, "only": True, "both": "BOTH"}
         server = ctx.message.server
@@ -186,6 +194,3 @@ def setup(bot):
     n = Welcome(bot)
     bot.add_listener(n.member_join,"on_member_join")
     bot.add_cog(n)
-    
-    print('Starting....')
-client.run('MzMzNjAxMzE1OTY1ODk0NjU2.DFDCrw.RPxweTa0q8ANnfU-lEIAcvpCfDk')
